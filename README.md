@@ -1,18 +1,30 @@
-# Basic Reason Template
+# 🧘 reiki
+> ReasonML bindings to Yoga Layout.
 
-Hello! This project allows you to quickly get started with Reason and BuckleScript. If you wanted a more sophisticated version, try the `react` template (`bsb -theme react -init .`).
+*Status*: Usable ALPHA. 
 
-# Build
-```
-npm run build
-```
+Homepage: https://ostera.github.io/reiki
 
-# Build + Watch
+## Installation
 
-```
-npm run start
+```sh
+ostera/reactor λ yarn add @ostera/reiki --save
 ```
 
+And including it in your `bsconfig.json` file too:
 
-# Editor
-If you use `vscode`, Press `Windows + Shift + B` it will build automatically
+```json
+{
+  // ...
+  "suffix": ".bs.js",
+  "bs-dependencies": [
+    "@ostera/reiki",
+  ],
+  "warnings": {
+    "error" : "+101"
+  },
+  // ... 
+}
+```
+
+Now you're good! Make sure to run `bsb -make-world` and check the docs! :)
