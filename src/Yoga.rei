@@ -82,11 +82,19 @@ module Node: {
     height: int,
   };
 
+  /**
+    Attributes used to create a brand new node.
+    */
   type attrs = {
+    /** The width of the node */
     width: int,
+    /** The height of the node */
     height: int,
+    /** Whether the contents should be justified */
     justify_content,
+    /** The flex direction for the children of this node */
     flex_direction,
+    /** How to align children of this node */
     align_items: alignment,
   };
 
