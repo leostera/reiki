@@ -1,0 +1,16 @@
+{2:top 🧘 reiki}
+
+[status: usable ALPHA].
+
+Reiki is an idiomatic ReasonML wrapper around the
+{{:https://yogalayout.com/}[yoga-layout]} node package by Facebook.
+
+It provides a comfortable, functional API to writting layouts.
+
+{[
+Reiki
+]}
+
+{3:catalog List of Modules}
+
+{!modules:Yoga}
