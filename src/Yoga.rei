@@ -104,7 +104,19 @@ module Node: {
    */
   type t;
 
+  /**
+    [create attrs]
+
+    Core function used to create a new node.
+    */
   let create: attrs => t;
+
+  /**
+    [insertChild child index node]
+
+    Insert a child. This will mutate the current Node by adding a child by index
+    to it's internal array of children.
+    */
   let insertChild: (t, int, t) => t;
   let calculateLayout: (ctx, t) => t;
   let computedLayout: t => computed_layout;

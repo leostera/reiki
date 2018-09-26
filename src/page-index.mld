@@ -13,8 +13,8 @@ Layout Docs}.
 {[
 let {top, left, width, height} : Yoga.Node.computed_layout = Yoga.Node.(
   create({
-    width,
-    height,
+    width: Window.width,
+    height: Window.height,
     justify_content: Flex_start,
     flex_direction: Column,
     align_items: Flex_start,
@@ -32,3 +32,140 @@ let {top, left, width, height} : Yoga.Node.computed_layout = Yoga.Node.(
 {3:catalog List of Modules}
 
 {!modules:Yoga}
+
+{3:motivation Motivation}
+
+Before we dig into how to use this library, let's do a small concept overview of
+why do we want to use a layouting like Yoga.
+
+Yoga a solution to rolling out your own layouting engine that will work in a
+cross-platform way, efficiently, and preserving semantics.
+
+By this I mean, the layout you define in your web application can be reused in
+your mobile applications or in native applications, and it will run efficiently
+everywhere, without needing to make significant changes to preserve the
+constraints you specified.
+
+That is, if you say that your [navbar] should be stretched horizontally across
+the screen, with it's children centered and evenly spaced according, you don't
+need to say {e the same thing} but {e in a different way}.
+
+With this in mind, Yoga works in 3 steps:
+
++ {{:#motivation-step-1} Declaring Constraints}
++ {{:#motivation-step-2} Recalculating the Layout}
++ {{:#motivation-step-3} Accessing the Computed Layout}
+
+For more info on how each step looks with [Reiki], keep reading onto
+{{:#getting-started} Getting Started}.
+
+{4:motivation-step-1 Declaring Constraints}
+
+First, we will build up a {e layouting forest}. That is, you will normally have
+one or multiple [root nodes] that will represent contexts for the rest of your
+application to be attached to. These [nodes] will be inserted children, which
+are really just more [nodes].
+
+{4:motivation-step-2 Recalculating the Layout}
+
+Once you have your layout constraints declared, you can take a [root node] and
+tell it to {e recalculate the layout}. This will update all of the node's children
+according to the constraints declared.
+
+{4:motivation-step-3 Accessing the Computed Layout}
+
+Now that we have our computed layout available, we can access it and use it's
+coordinate and sizing attributes (such as [{top, left, width, height, ...}]) to
+apply this layout to CSS, SVG, Canvas, WebGL, Cocoa, wxWidgets, GTK+, SDL,
+OpenGL, DirectX, or whichever library or framework that will take care of
+actually showing things on a screen.
+
+
+{3:getting-started Getting Started}
+
+The core of the Reiki package is the {!Yoga.Node} module. In it you'll find a
+handful of utility functions for dealing with [nodes]. In this intro we will
+visit 4: {!Yoga.Node.create}, {!Yoga.Node.insertChild},
+{!Yoga.Node.calculateLayout}, and {!Yoga.Node.computedLayout}.
+
+Let's create our root node, giving it the size of the current viewport, and
+arranging the content inside of it to be at the beginning of the flexed
+containers, with it's internal elements stacked in a column (as opposed to a
+row), and aligning them with the beginning of the flexed container.
+
+> Note: if this lingo feels strange, feel free to have a look at
+> {{:https://css-tricks.com/snippets/css/a-guide-to-flexbox/} CSS Trick's
+> Complete Guide to Flexbox}. It might make some of it clearer! Otherwise feel
+> free to {{:https://github.com/ostera/reiki/issues/new}open an Github Issue}
+> and we can work on rephrasing it 🙌🏼
+
+{[
+let root = Yoga.Node.create({
+  width: Window.width,
+  height: Window.height,
+  justify_content: Flex_start,
+  flex_direction: Column,
+  align_items: Flex_start,
+});
+]}
+
+Great, with our [root node] in place, we can define our [navbar] node. This node
+should be as wide as the screen, but have a fixed height, and keep all of it's
+content in a single row, centered, but equidistantly spaced:
+
+{[
+let navbar = Yoga.Node.create({
+  width: Window.width,
+  height: 100,
+  justify_content: Space_between,
+  flex_direction: Row,
+  align_items: Center,
+});
+]}
+
+Now we can insert this node into our [root]:
+
+{[
+Yoga.Node.insertChild(navbar, 1, root) |> ignore;
+]}
+
+It is worth noting that while the API for `insertChild` is designed to piping
+convenience (data-last, and returns the same node), internally the library is
+actually mutating the node.
+
+After this we can recompute the complete layout by asking the [root] to
+recalculate it's layout on a particular context ({!Yoga.Node.ctx}):
+
+{[
+Yoga.Node.calculateLayout({
+  width: Window.width,
+  height: Window.height,
+  direction: Left_ro_right,
+}, root);
+]}
+
+Now each [node] under the parenthood of our [root node] will have it's computed
+layout updated! We can access it using {!Yoga.Node.computedLayout}:
+
+{[
+let root_layout = root |> Yoga.Node.computedLayout;
+let nav_layout = navbar |> Yoga.Node.computedLayout;
+]}
+
+And we can use the properties [{ top, left, width, height }] top position and
+size our root component and our navigation component!
+
+Make sure to set your CSS styles to [position: absolute]!
+
+{3:algebras Algebras}
+
+The keen observer might have noticed that [nodes] seem to form {e monoids}. I'm
+still exploring the application of these abstractions, but if they pan out
+nicely, a {!Yoga.Operators} package will be provided. I'd very much like to
+concisely recompute my layouts:
+
+{[
+open Yoga.Operators;
+
+let computed_layout = root <+> nav <+> side <+> content <+> footer *> context
+]}
