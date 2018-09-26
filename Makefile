@@ -24,3 +24,7 @@ clean:
 .PHONY: cleanall
 cleanall: clean
 	@rm -rf node_modules lib
+
+.PHONY: publish
+publish: clean build docs
+	npm publish --access public
