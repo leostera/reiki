@@ -121,3 +121,19 @@ module Node: {
   let calculateLayout: (ctx, t) => t;
   let computedLayout: t => computed_layout;
 };
+
+module Operators: {
+  /**
+      [ root <<- (child, index) ]
+
+      Insert child into the left-hand-side node.
+    */
+  let (<<-): (Node.t, (Node.t, int)) => Node.t;
+
+  /**
+      [ root *> context == computed_layout ]
+
+      Recompute a layout on a given context.
+    */
+  let ( *> ): (Node.t, Node.ctx) => Node.computed_layout;
+};

@@ -196,3 +196,11 @@ module Node = {
     };
   };
 };
+
+module Operators = {
+  let (<<-) = (root, (child, index)) =>
+    Node.insertChild(child, index, root);
+
+  let ( *> ) = (node, ctx) =>
+    Node.calculateLayout(ctx, node) |> Node.computedLayout;
+};

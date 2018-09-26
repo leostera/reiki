@@ -2,19 +2,23 @@
 // BuckleScript comes with its own parser for bsconfig.json, which is normal JSON, with the extra support of comments and trailing commas.
 {
   "name": "@ostera/reiki",
-  "version": "0.0.2-alpha",
-  "sources": {
+  "version": "0.0.3-alpha",
+  "sources": [
+  {
     "dir" : "src",
     "subdirs" : true
   },
+  {
+    "dir" : "examples",
+    "subdirs" : true
+  }
+  ],
   "package-specs": {
     "module": "commonjs",
     "in-source": false
   },
   "suffix": ".bs.js",
-  "bs-dependencies": [
-      // add your dependencies here. You'd usually install them normally through `npm install my-dependency`. If my-dependency has a bsconfig.json too, then everything will work seamlessly.
-  ],
+  "bs-dependencies": [],
   "warnings": {
     "error" : "+101"
   },
