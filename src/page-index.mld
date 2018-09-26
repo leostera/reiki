@@ -7,8 +7,26 @@ Reiki is an idiomatic ReasonML wrapper around the
 
 It provides a comfortable, functional API to writting layouts.
 
+For the main documentation please visit: {{:http://yogalayout.com/docs} Yoga
+Layout Docs}.
+
 {[
-Reiki
+let {top, left, width, height} : Yoga.Node.computed_layout = Yoga.Node.(
+  create({
+    width,
+    height,
+    justify_content: Flex_start,
+    flex_direction: Column,
+    align_items: Flex_start,
+  })
+  |> insertChild(nav.node, 0)
+  |> insertChild(footer.node, 0)
+  |> calculateLayout({
+       width: Window.width,
+       height: Window.height,
+       direction: Left_to_right,
+     })
+);
 ]}
 
 {3:catalog List of Modules}
