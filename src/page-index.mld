@@ -167,5 +167,5 @@ concisely recompute my layouts:
 {[
 open Yoga.Operators;
 
-let computed_layout = root <+> nav <+> side <+> content <+> footer *> context
+let computed_layout = root <+> nav <+> content <+> footer *> context
 ]}
