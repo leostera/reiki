@@ -93,11 +93,11 @@ arranging the content inside of it to be at the beginning of the flexed
 containers, with it's internal elements stacked in a column (as opposed to a
 row), and aligning them with the beginning of the flexed container.
 
-> Note: if this lingo feels strange, feel free to have a look at
-> {{:https://css-tricks.com/snippets/css/a-guide-to-flexbox/} CSS Trick's
-> Complete Guide to Flexbox}. It might make some of it clearer! Otherwise feel
-> free to {{:https://github.com/ostera/reiki/issues/new}open an Github Issue}
-> and we can work on rephrasing it 🙌🏼
+{b Note.} if this lingo feels strange, feel free to have a look at
+{{:https://css-tricks.com/snippets/css/a-guide-to-flexbox/} CSS Trick's
+Complete Guide to Flexbox}. It might make some of it clearer! Otherwise feel
+free to {{:https://github.com/ostera/reiki/issues/new}open an Github Issue}
+and we can work on rephrasing it 🙌🏼
 
 {[
 let root = Yoga.Node.create({
